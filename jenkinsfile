@@ -18,12 +18,10 @@ pipeline {
          }
         }
     }
-    post {
-        success {
-            echo 'Deployment to Render was successful!'
-        }
-        failure {
-            echo 'Deployment failed. Please check the logs.'
-        }
+   post {
+    failure {
+        mail to: 'team@example.com',
+             subject: "FAILED: ${currentBuild.fullDisplayName}",
+             body: "Tests failed in ${env.BUILD_URL}" [5]
     }
 }
