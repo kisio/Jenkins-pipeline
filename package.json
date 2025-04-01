@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "mocha --exit",
+    "start": "node backend/server.js",
+    "build": "npm install && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
