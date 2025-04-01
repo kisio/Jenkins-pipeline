@@ -20,7 +20,7 @@ pipeline {
     }
    post {
     failure {
-        mail to: 'team@example.com',
+        mail to: 'derrick.kisio@student.moringaschool.com',
              subject: "FAILED: ${currentBuild.fullDisplayName}",
              body: "Tests failed in ${env.BUILD_URL}" [5]
     }
