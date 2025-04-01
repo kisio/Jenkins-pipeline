@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
-    <title>Darkroom</title>
+    <title>Gallery</title>
 </head>
 <body style="background-color: #f4f4f4;">
   <div class="navbar-fixed">
@@ -29,36 +29,24 @@
   </div>
     
     <div class="container">
-        <h1>Image Upload </h1>
-        <%= typeof msg != 'undefined' ? msg : '' %>
-        <form action="/upload" method = "POST" enctype="multipart/form-data">
-            <div class="file-field input-field">
-              <div class="btn grey">
-                <span>Image</span>
-                <input name = "image" type="file">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
-              </div>
+        <!-- Add MILESTONE 3 -->
+        <div style="text-align: center; margin-top: 20px;">
+            <h1 style="font-size: 3rem; color: #4CAF50;">MILESTONE 4</h1>
+        </div>
+
+        <div>
+            <% if (msg) { %>
+                <p><%= msg %></p>
+            <% } %>
+            <div class="gallery">
+                <% images.forEach(image => { %>
+                    <div class="image">
+                        <img src="<%= image.path %>" alt="<%= image.name %>">
+                        <p><%= image.name %></p>
+                    </div>
+                <% }) %>
             </div>
-            <button type="submit" class="btn">Submit</button>
-        </form>
-        <hr>
-        <br>
-        
-          <div class="row">
-            <% images.forEach(function(image){ %>
-
-              <div class="column">
-
-                <a href="/image/<%= image._id %>"> <img src="<%= image.path %>" class="responsive-img" alt="<%= image.name %>"> </a>
-              </div>
-            <% }); %>  
-          </div>
-            
-              
-            
-        <!-- <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img" alt=""> -->
+        </div>
     </div>
     
     
@@ -67,4 +55,3 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
-                
