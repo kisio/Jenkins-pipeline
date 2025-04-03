@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Deploy to Render') {
             steps {
-                echo 'Deploying to Render...'
+                sh 'node server.js'
                
             }
         }
