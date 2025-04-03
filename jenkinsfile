@@ -40,7 +40,7 @@ pipeline {
         failure {
             mail to: 'derrickkisio@gmail.com',
                  subject: 'Build Failed',
-                 body: 'Tests failed in the pipeline. '
+                 body: 'Tests failed in the pipeline.'
         }
     }
 }
