@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        nodejs 'Node v18.19.1' 
+        nodejs 'Node v18.19.1'
     }
     stages {
         stage('Install Dependencies') {
@@ -12,8 +12,24 @@ pipeline {
         stage('Deploy to Render') {
             steps {
                 sh 'node server.js'
-               
             }
+        }
+        stage('Run Tests') {
+            steps {
+                sh 'npm test'
+            }
+        }
+    }
+    post {
+        success {
+            mail to: 'derrickkisio@gmail.com',
+                 subject: 'Build Successful',
+                 body: 'The pipeline completed successfully.'
+        }
+        failure {
+            mail to: 'derrickkisio@gmail.com',
+                 subject: 'Build Failed',
+                 body: 'Tests failed in the pipeline.'
         }
     }
 }
