@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        RENDER_URL = 'https://jenkins-pipeline-4nha.onrender.com'
+    }
     tools {
         nodejs 'Node v18.19.1'
     }
@@ -17,6 +20,14 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh 'npm test'
+            }
+        }
+        stage('Notify Slack') {
+            steps {
+                script {
+                    slackSend channel: '#derrick_ip1',
+                              message: "Build ${env.BUILD_ID} succeeded! View site here: ${env.RENDER_URL}"
+                }
             }
         }
     }
