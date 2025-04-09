@@ -1,12 +1,12 @@
 pipeline {
     agent any
-     options {
+    options {
         timeout(time: 10, unit: 'MINUTES')  
         retry(3)  
     }
 
     environment {
-        RENDER_DEPLOY_HOOK = 'https://jenkins-pipeline-4nha.onrender.com/deploy-hook'
+        RENDER_DEPLOY_HOOK = 'https://api.render.com/deploy/srv-cvrc71ur433s73b8gplg?key=d65s8G6qT1g' 
     }
 
     tools {
@@ -28,7 +28,10 @@ pipeline {
 
         stage('Deploy to Render') {
             steps {
-                sh 'node server.js' 
+                script {
+                    
+                    sh "curl -X POST ${env.RENDER_DEPLOY_HOOK}"
+                }
             }
         }
 
