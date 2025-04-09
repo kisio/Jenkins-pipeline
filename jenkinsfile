@@ -21,6 +21,12 @@ pipeline {
                 sh 'node server.js'
             }
 
+        stage('Deploy to Render') {
+        steps {
+                sh 'node server.js'
+            }
+        }
+
         stage('Notify Slack') {
             steps {
                 script {
