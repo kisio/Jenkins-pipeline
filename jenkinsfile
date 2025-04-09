@@ -8,13 +8,13 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                npm 'install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'npm test'
+                npm 'test'
             }
         }
 
