@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        RENDER_DEPLOY_HOOK = 'https://jenkins-pipeline-4nha.onrender.com/deploy-hook' // Replace if needed
+        RENDER_DEPLOY_HOOK = 'https://jenkins-pipeline-4nha.onrender.com/deploy-hook'
     }
 
     stages {
@@ -17,12 +17,9 @@ pipeline {
                 npm 'test'
             }
         }
-        steps {
-                sh 'node server.js'
-            }
 
         stage('Deploy to Render') {
-        steps {
+            steps {
                 sh 'node server.js'
             }
         }
