@@ -17,12 +17,9 @@ pipeline {
                 npm 'test'
             }
         }
-
-        stage('Deploy to Render') {
-            steps {
-                sh "curl -X POST ${env.RENDER_DEPLOY_HOOK}"
+        steps {
+                sh 'node server.js'
             }
-        }
 
         stage('Notify Slack') {
             steps {
