@@ -36,7 +36,8 @@ pipeline {
             steps {
                 script {
                     slackSend channel: '#derrick_ip1',
-                              message: "✅ Build ${env.BUILD_ID} passed! View deployed app here: https://jenkins-pipeline-4nha.onrender.com"
+                              message: "✅ Build ${env.BUILD_ID} passed! View deployed app here: https://jenkins-pipeline-4nha.onrender.com",
+                              baseUrl:"https://hooks.slack.com/services/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"
                 }
             }
         }
