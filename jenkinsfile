@@ -4,7 +4,9 @@ pipeline {
     environment {
         RENDER_DEPLOY_HOOK = 'https://jenkins-pipeline-4nha.onrender.com/deploy-hook'
     }
-
+    tools {
+        nodejs 'Node v18.19.1'
+    }
     stages {
         stage('Install Dependencies') {
             steps {
@@ -20,7 +22,7 @@ pipeline {
 
         stage('Deploy to Render') {
             steps {
-                sh 'node server.js'
+                sh ' server.js'
             }
         }
 
