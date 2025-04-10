@@ -1,47 +1,57 @@
 pipeline {
     agent any
     options {
-        timeout(time: 10, unit: 'MINUTES')  
-        retry(3)  
+        timeout(time: 15, unit: 'MINUTES') 
+        retry(3)
     }
 
     environment {
-        RENDER_DEPLOY_HOOK = 'https://api.render.com/deploy/srv-cvrc71ur433s73b8gplg?key=d65s8G6qT1g' 
+        RENDER_DEPLOY_HOOK = 'https://api.render.com/deploy/srv-cvrc71ur433s73b8gplg?key=d65s8G6qT1g'
     }
 
     tools {
-        nodejs 'Node v18.19.1' 
+        nodejs 'Node v18.19.1'
     }
+
     stages {
         stage('Install Dependencies') {
             steps {
-                npm 'install'
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    npm 'install'
+                }
             }
         }
 
         stage('Run Tests') {
             steps {
-                npm 'test'
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    npm 'test'
+                }
             }
         }
 
         stage('Deploy to Render') {
             steps {
                 script {
-                    
-                    sh "curl -X POST ${env.RENDER_DEPLOY_HOOK}"
+                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                        sh "curl -X POST ${env.RENDER_DEPLOY_HOOK}"
+                    }
                 }
             }
         }
+
         stage('Notify Slack') {
             steps {
                 script {
-                    slackSend channel: '#derrick_ip1',
-                              message: "✅ Build ${env.BUILD_ID} passed! View deployed app here: https://jenkins-pipeline-4nha.onrender.com"
+                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                        slackSend channel: '#derrick_ip1',
+                                  message: "✅ Build ${env.BUILD_ID} passed! View deployed app here: https://jenkins-pipeline-4nha.onrender.com"
+                    }
                 }
             }
         }
     }
+
     post {
         success {
             mail to: 'derrickkisio@gmail.com',
@@ -51,7 +61,7 @@ pipeline {
         failure {
             mail to: 'derrickkisio@gmail.com',
                  subject: '❌ Build Failed',
-                 body: 'The pipeline failed. Please check the Jenkins logs.'
+                 body: 'The pipeline failed. Please check the Jenkins logs for details.'
         }
     }
 }
